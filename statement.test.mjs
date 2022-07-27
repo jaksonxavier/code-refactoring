@@ -34,4 +34,15 @@ describe("Statement", () => {
       `Statement for The Jackson's\nRomeo and Juliet: $450.00(35 seats)\nUgly Americans: $524.00(28 seats)\nAmount owed is $974.00\nYou earned 10 credits\n`
     );
   });
+
+  it("should not be able to generate a report if unknown play type", () => {
+    const { invoice } = dataset;
+    const plays = {
+      "auto-da-compadecida": { name: "Auto da Compadecida", type: "melodrama" },
+    };
+  
+    const result = () => statement(invoice, plays);
+  
+    assert.throws(result, `unknown type: ${plays["auto-da-compadecida"].type}`);
+  });
 });
