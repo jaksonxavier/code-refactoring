@@ -9,7 +9,7 @@ export default function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    const play = plays[perf.playID];
+    const play = playFor(perf, plays);
     let thisAmount = amountFor(perf, play);
 
     // soma créditos por volume
@@ -55,4 +55,8 @@ function amountFor(performance, play) {
   }
 
   return amount;
+}
+
+function playFor(performance, plays) {
+  return plays[performance.playID];
 }
