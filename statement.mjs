@@ -11,10 +11,8 @@ function renderPlainText(data) {
   let result = `Statement for ${data.customer}\n`;
 
   for (let perf of data.performances) {
-    let thisAmount = amountFor(perf);
-
     // exibe a linha para esta requisição
-    result += `${perf.play.name}: ${formatAsUSD(thisAmount)}(${
+    result += `${perf.play.name}: ${formatAsUSD(perf.amount)}(${
       perf.audience
     } seats)\n`;
   }
@@ -92,7 +90,7 @@ function totalAmount(performances) {
   let totalAmount = 0;
 
   for (let performance of performances) {
-    totalAmount += amountFor(performance);
+    totalAmount += performance.amount;
   }
 
   return totalAmount;
@@ -102,6 +100,7 @@ function enrichPerformance(performance, plays) {
   const result = Object.assign({}, performance);
 
   result.play = playFor(performance, plays);
+  result.amount = amountFor(result);
 
   return result;
 }
