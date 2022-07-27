@@ -7,13 +7,16 @@ export default function statement(invoice, plays) {
     const play = playFor(perf, plays);
     let thisAmount = amountFor(perf, play);
 
-    volumeCredits += volumeCreditsFor(perf, play);
-
     // exibe a linha para esta requisição
     result += `${play.name}: ${formatAsUSD(thisAmount)}(${
       perf.audience
     } seats)\n`;
     totalAmount += thisAmount;
+  }
+
+  for(let perf of invoice.performances) {
+    const play = playFor(perf, plays);
+    volumeCredits += volumeCreditsFor(perf, play);
   }
 
   result += `Amount owed is ${formatAsUSD(totalAmount)}\n`;
