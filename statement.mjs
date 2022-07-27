@@ -1,5 +1,4 @@
 export default function statement(invoice, plays) {
-  let totalAmount = 0;
   let result = `Statement for ${invoice.customer}\n`;
 
   for (let perf of invoice.performances) {
@@ -10,12 +9,12 @@ export default function statement(invoice, plays) {
     result += `${play.name}: ${formatAsUSD(thisAmount)}(${
       perf.audience
     } seats)\n`;
-    totalAmount += thisAmount;
   }
 
   let volumeCredits = totalVolumeCredits(invoice, plays);
+  let amount = totalAmount(invoice, plays);
 
-  result += `Amount owed is ${formatAsUSD(totalAmount)}\n`;
+  result += `Amount owed is ${formatAsUSD(amount)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
 
   return result;
@@ -80,4 +79,15 @@ function totalVolumeCredits(invoice, plays) {
   }
 
   return volumeCredits;
+}
+
+function totalAmount(invoice, plays) {
+  let totalAmount = 0;
+
+  for (let perf of invoice.performances) {
+    const play = playFor(perf, plays);
+    totalAmount += amountFor(perf, play);
+  }
+
+  return totalAmount;
 }
