@@ -1,6 +1,5 @@
 export default function statement(invoice, plays) {
   let totalAmount = 0;
-  let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
 
   for (let perf of invoice.performances) {
@@ -14,6 +13,7 @@ export default function statement(invoice, plays) {
     totalAmount += thisAmount;
   }
 
+  let volumeCredits = 0;
   for(let perf of invoice.performances) {
     const play = playFor(perf, plays);
     volumeCredits += volumeCreditsFor(perf, play);
