@@ -7,4 +7,4 @@
 
 **RN**
 
-- [] Criar testes para garantir o funcionamento correto do sistema antes de implementar novas funcionalidades
+- [x] Criar testes para garantir o funcionamento correto do sistema antes de implementar novas funcionalidades
