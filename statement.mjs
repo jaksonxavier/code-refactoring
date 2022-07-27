@@ -1,11 +1,16 @@
 export default function statement(invoice, plays) {
-  return renderPlainText(invoice, plays);
+  const statementData = {
+    customer: invoice.customer,
+    performances: invoice.performances
+  };
+
+  return renderPlainText(statementData, plays);
 }
 
-function renderPlainText(invoice, plays) {
-  let result = `Statement for ${invoice.customer}\n`;
+function renderPlainText(data, plays) {
+  let result = `Statement for ${data.customer}\n`;
 
-  for (let perf of invoice.performances) {
+  for (let perf of data.performances) {
     const play = playFor(perf, plays);
     let thisAmount = amountFor(perf, play);
 
@@ -15,8 +20,8 @@ function renderPlainText(invoice, plays) {
     } seats)\n`;
   }
 
-  let volumeCredits = totalVolumeCredits(invoice, plays);
-  let amount = totalAmount(invoice, plays);
+  let volumeCredits = totalVolumeCredits(data.performances, plays);
+  let amount = totalAmount(data.performances, plays);
 
   result += `Amount owed is ${formatAsUSD(amount)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
@@ -74,23 +79,23 @@ function formatAsUSD(number) {
   }).format(number / 100);
 }
 
-function totalVolumeCredits(invoice, plays) {
+function totalVolumeCredits(performances, plays) {
   let volumeCredits = 0;
 
-  for (let perf of invoice.performances) {
-    const play = playFor(perf, plays);
-    volumeCredits += volumeCreditsFor(perf, play);
+  for (let performance of performances) {
+    const play = playFor(performance, plays);
+    volumeCredits += volumeCreditsFor(performance, play);
   }
 
   return volumeCredits;
 }
 
-function totalAmount(invoice, plays) {
+function totalAmount(performances, plays) {
   let totalAmount = 0;
 
-  for (let perf of invoice.performances) {
-    const play = playFor(perf, plays);
-    totalAmount += amountFor(perf, play);
+  for (let performance of performances) {
+    const play = playFor(performance, plays);
+    totalAmount += amountFor(performance, play);
   }
 
   return totalAmount;
