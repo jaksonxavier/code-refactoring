@@ -7,7 +7,9 @@ export default function statement(invoice, plays) {
   };
 
   statementData.totalAmount = totalAmount(statementData.performances);
-  statementData.totalVolumeCredits = totalVolumeCredits(statementData.performances);
+  statementData.totalVolumeCredits = totalVolumeCredits(
+    statementData.performances
+  );
 
   return renderPlainText(statementData);
 }
@@ -79,23 +81,17 @@ function formatAsUSD(number) {
 }
 
 function totalVolumeCredits(performances) {
-  let volumeCredits = 0;
-
-  for (let performance of performances) {
-    volumeCredits += performance.volumeCredits;
-  }
-
-  return volumeCredits;
+  return performances.reduce(
+    (total, performance) => total + performance.volumeCredits,
+    0
+  );
 }
 
 function totalAmount(performances) {
-  let totalAmount = 0;
-
-  for (let performance of performances) {
-    totalAmount += performance.amount;
-  }
-
-  return totalAmount;
+  return performances.reduce(
+    (total, performance) => total + performance.amount,
+    0
+  );
 }
 
 function enrichPerformance(performance, plays) {
