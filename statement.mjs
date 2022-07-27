@@ -1,4 +1,8 @@
 export default function statement(invoice, plays) {
+  return renderPlainText(invoice, plays);
+}
+
+function renderPlainText(invoice, plays) {
   let result = `Statement for ${invoice.customer}\n`;
 
   for (let perf of invoice.performances) {
@@ -73,7 +77,7 @@ function formatAsUSD(number) {
 function totalVolumeCredits(invoice, plays) {
   let volumeCredits = 0;
 
-  for(let perf of invoice.performances) {
+  for (let perf of invoice.performances) {
     const play = playFor(perf, plays);
     volumeCredits += volumeCreditsFor(perf, play);
   }
