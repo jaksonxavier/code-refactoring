@@ -2,11 +2,6 @@ export default function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
-  const format = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format;
 
   for (let perf of invoice.performances) {
     const play = playFor(perf, plays);
@@ -15,13 +10,13 @@ export default function statement(invoice, plays) {
     volumeCredits += volumeCreditsFor(perf, play);
 
     // exibe a linha para esta requisição
-    result += `${play.name}: ${format(thisAmount / 100)}(${
+    result += `${play.name}: ${formatAsUSD(thisAmount)}(${
       perf.audience
     } seats)\n`;
     totalAmount += thisAmount;
   }
 
-  result += `Amount owed is ${format(totalAmount / 100)}\n`;
+  result += `Amount owed is ${formatAsUSD(totalAmount)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
 
   return result;
@@ -67,4 +62,12 @@ function volumeCreditsFor(performance, play) {
   }
 
   return volumeCredits;
+}
+
+function formatAsUSD(number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(number / 100);
 }
