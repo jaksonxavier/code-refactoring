@@ -12,13 +12,7 @@ export default function statement(invoice, plays) {
     const play = playFor(perf, plays);
     let thisAmount = amountFor(perf, play);
 
-    // soma créditos por volume
-    volumeCredits += Math.max(perf.audience - 30, 0);
-
-    // soma um crédito extra para cada dez espectadores de comédia
-    if (play.type === "comedy") {
-      volumeCredits += Math.floor(perf.audience / 5);
-    }
+    volumeCredits += volumeCreditsFor(perf, play);
 
     // exibe a linha para esta requisição
     result += `${play.name}: ${format(thisAmount / 100)}(${
@@ -59,4 +53,18 @@ function amountFor(performance, play) {
 
 function playFor(performance, plays) {
   return plays[performance.playID];
+}
+
+function volumeCreditsFor(performance, play) {
+  let volumeCredits = 0;
+
+  // soma créditos por volume
+  volumeCredits += Math.max(performance.audience - 30, 0);
+
+  // soma um crédito extra para cada dez espectadores de comédia
+  if (play.type === "comedy") {
+    volumeCredits += Math.floor(performance.audience / 5);
+  }
+
+  return volumeCredits;
 }
