@@ -80,7 +80,7 @@ function totalVolumeCredits(performances) {
   let volumeCredits = 0;
 
   for (let performance of performances) {
-    volumeCredits += volumeCreditsFor(performance);
+    volumeCredits += performance.volumeCredits;
   }
 
   return volumeCredits;
@@ -101,6 +101,7 @@ function enrichPerformance(performance, plays) {
 
   result.play = playFor(performance, plays);
   result.amount = amountFor(result);
+  result.volumeCredits = volumeCreditsFor(result);
 
   return result;
 }
