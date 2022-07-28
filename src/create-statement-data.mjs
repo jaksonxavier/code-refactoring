@@ -24,7 +24,7 @@ function enrichPerformance(performance, plays) {
   const result = Object.assign({}, performance);
 
   result.play = calculator.play;
-  result.amount = amountFor(result);
+  result.amount = calculator.amount;
   result.volumeCredits = volumeCreditsFor(result);
 
   return result;
@@ -32,30 +32,6 @@ function enrichPerformance(performance, plays) {
 
 function playFor(performance, plays) {
   return plays[performance.playID];
-}
-
-function amountFor(performance) {
-  let amount = 0;
-
-  switch (performance.play.type) {
-    case "tragedy":
-      amount = 40000;
-      if (performance.audience > 30) {
-        amount += 1000 * (performance.audience - 30);
-      }
-      break;
-    case "comedy":
-      amount = 30000;
-      if (performance.audience > 20) {
-        amount += 10000 + 500 * (performance.audience - 20);
-      }
-      amount += 300 * performance.audience;
-      break;
-    default:
-      throw new Error(`unknown type: ${performance.play.type}`);
-  }
-
-  return amount;
 }
 
 function volumeCreditsFor(performance) {
