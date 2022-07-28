@@ -2,7 +2,7 @@
 
 **RF**
 
-- [] Deve ser possível exibir o desmostrativo em HTMl.
+- [x] Deve ser possível exibir o desmostrativo em HTMl.
 - [] Deve ser possível encenar outros tipos de peças.
 
 **RN**

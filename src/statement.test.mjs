@@ -1,7 +1,9 @@
 import assert from "node:assert";
 import { describe, it } from "node:test";
 
+import createStatementData from "./create-statement-data.mjs";
 import statement from "./statement.mjs";
+import htmlTemplate from "./template/html-template.mjs";
 
 describe("Statement", () => {
   const dataset = {
@@ -40,9 +42,27 @@ describe("Statement", () => {
     const plays = {
       "auto-da-compadecida": { name: "Auto da Compadecida", type: "melodrama" },
     };
-  
+
     const result = () => statement(invoice, plays);
-  
+
     assert.throws(result, `unknown type: ${plays["auto-da-compadecida"].type}`);
+  });
+
+  it("should be able to generate a report in html", () => {
+    const { invoice, plays } = dataset;
+
+    const expected = htmlTemplate(createStatementData(invoice, plays));
+
+    const received = statement(invoice, plays, "html");
+
+    assert.strictEqual(received, expected);
+  });
+
+  it("should be able to throws if report type is unknown", () => {
+    const { invoice, plays } = dataset;
+
+    const result = () => statement(invoice, plays, "invalid-type");
+
+    assert.throws(result, `unknown type: invalid-type`);
   });
 });

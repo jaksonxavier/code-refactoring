@@ -1,10 +1,18 @@
 import createStatementData from "./create-statement-data.mjs";
 import formatAsUSD from "./format-usd.mjs";
+import htmlTemplate from "./template/html-template.mjs";
 
-export default function statement(invoice, plays) {
+export default function statement(invoice, plays, type = "plainText") {
   const statementData = createStatementData(invoice, plays);
 
-  return renderPlainText(statementData);
+  switch (type) {
+    case "plainText":
+      return renderPlainText(statementData);
+    case "html":
+      return renderHtml(statementData);
+    default:
+      throw new Error(`unknown report type: ${type}`);
+  }
 }
 
 function renderPlainText(data) {
@@ -21,4 +29,8 @@ function renderPlainText(data) {
   result += `You earned ${data.totalVolumeCredits} credits\n`;
 
   return result;
+}
+
+function renderHtml(data) {
+  return htmlTemplate(data);
 }
