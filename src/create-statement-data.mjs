@@ -1,3 +1,5 @@
+import PerformanceCalculator from "./performance-calculator.mjs";
+
 export default function createStatementData(invoice, plays) {
   const statementData = {};
 
@@ -14,9 +16,14 @@ export default function createStatementData(invoice, plays) {
 }
 
 function enrichPerformance(performance, plays) {
+  const calculator = new PerformanceCalculator(
+    performance,
+    playFor(performance, plays)
+  );
+
   const result = Object.assign({}, performance);
 
-  result.play = playFor(performance, plays);
+  result.play = calculator.play;
   result.amount = amountFor(result);
   result.volumeCredits = volumeCreditsFor(result);
 
