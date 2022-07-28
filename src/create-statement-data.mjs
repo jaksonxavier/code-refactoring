@@ -4,33 +4,32 @@ import {
 } from "./performance-calculator.mjs";
 
 export default function createStatementData(invoice, plays) {
-  const statementData = {};
-
-  statementData.customer = invoice.customer;
-  statementData.performances = invoice.performances.map((performance) =>
+  const performances = invoice.performances.map((performance) =>
     enrichPerformance(performance, plays)
   );
-  statementData.totalAmount = totalAmount(statementData.performances);
-  statementData.totalVolumeCredits = totalVolumeCredits(
-    statementData.performances
-  );
+  const amount = totalAmount(performances);
+  const volumeCredits = totalVolumeCredits(performances);
 
-  return statementData;
+  return {
+    customer: invoice.customer,
+    performances,
+    totalAmount: amount,
+    totalVolumeCredits: volumeCredits,
+  };
 }
 
 function enrichPerformance(performance, plays) {
-  const calculator = createPerformanceCalculator(
+  const { play, amount, volumeCredits } = createPerformanceCalculator(
     performance,
     playFor(performance, plays)
   );
 
-  const result = Object.assign({}, performance);
-
-  result.play = calculator.play;
-  result.amount = calculator.amount;
-  result.volumeCredits = calculator.volumeCredits;
-
-  return result;
+  return {
+    ...performance,
+    play,
+    amount,
+    volumeCredits,
+  };
 }
 
 function createPerformanceCalculator(performance, play) {
