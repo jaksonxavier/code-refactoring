@@ -1,7 +1,5 @@
-import {
-  ComedyCalculator,
-  TragedyCalculator
-} from "./performance-calculator.mjs";
+import ComedyCalculator from "./calculator/comedy-calculator.mjs";
+import TragedyCalculator from "./calculator/tragedy-calculator.mjs";
 
 export default function createStatementData(invoice, plays) {
   const performances = invoice.performances.map((performance) =>
