@@ -1,4 +1,5 @@
 import createStatementData from "./create-statement-data.mjs";
+import formatAsUSD from "./format-usd.mjs";
 
 export default function statement(invoice, plays) {
   const statementData = createStatementData(invoice, plays);
@@ -20,12 +21,4 @@ function renderPlainText(data) {
   result += `You earned ${data.totalVolumeCredits} credits\n`;
 
   return result;
-}
-
-function formatAsUSD(number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format(number / 100);
 }
