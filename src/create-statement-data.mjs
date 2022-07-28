@@ -1,4 +1,7 @@
-import PerformanceCalculator from "./performance-calculator.mjs";
+import {
+  ComedyCalculator,
+  TragedyCalculator
+} from "./performance-calculator.mjs";
 
 export default function createStatementData(invoice, plays) {
   const statementData = {};
@@ -31,7 +34,16 @@ function enrichPerformance(performance, plays) {
 }
 
 function createPerformanceCalculator(performance, play) {
-  return new PerformanceCalculator(performance, play);
+  switch (play.type) {
+    case "tragedy":
+      return new TragedyCalculator(performance, play);
+      break;
+    case "comedy":
+      return new ComedyCalculator(performance, play);
+      break;
+    default:
+      throw new Error(`unknown type: ${play.type}`);
+  }
 }
 
 function playFor(performance, plays) {
