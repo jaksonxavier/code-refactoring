@@ -1,26 +1,4 @@
-export default function statement(invoice, plays) {
-  const statementData = createStatementData(invoice, plays);
-
-  return renderPlainText(statementData);
-}
-
-function renderPlainText(data) {
-  let result = `Statement for ${data.customer}\n`;
-
-  for (let perf of data.performances) {
-    // exibe a linha para esta requisição
-    result += `${perf.play.name}: ${formatAsUSD(perf.amount)}(${
-      perf.audience
-    } seats)\n`;
-  }
-
-  result += `Amount owed is ${formatAsUSD(data.totalAmount)}\n`;
-  result += `You earned ${data.totalVolumeCredits} credits\n`;
-
-  return result;
-}
-
-function createStatementData(invoice, plays) {
+export default function createStatementData(invoice, plays) {
   const statementData = {};
 
   statementData.customer = invoice.customer;
@@ -33,6 +11,20 @@ function createStatementData(invoice, plays) {
   );
 
   return statementData;
+}
+
+function enrichPerformance(performance, plays) {
+  const result = Object.assign({}, performance);
+
+  result.play = playFor(performance, plays);
+  result.amount = amountFor(result);
+  result.volumeCredits = volumeCreditsFor(result);
+
+  return result;
+}
+
+function playFor(performance, plays) {
+  return plays[performance.playID];
 }
 
 function amountFor(performance) {
@@ -59,10 +51,6 @@ function amountFor(performance) {
   return amount;
 }
 
-function playFor(performance, plays) {
-  return plays[performance.playID];
-}
-
 function volumeCreditsFor(performance) {
   let volumeCredits = 0;
 
@@ -77,21 +65,6 @@ function volumeCreditsFor(performance) {
   return volumeCredits;
 }
 
-function formatAsUSD(number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format(number / 100);
-}
-
-function totalVolumeCredits(performances) {
-  return performances.reduce(
-    (total, performance) => total + performance.volumeCredits,
-    0
-  );
-}
-
 function totalAmount(performances) {
   return performances.reduce(
     (total, performance) => total + performance.amount,
@@ -99,12 +72,9 @@ function totalAmount(performances) {
   );
 }
 
-function enrichPerformance(performance, plays) {
-  const result = Object.assign({}, performance);
-
-  result.play = playFor(performance, plays);
-  result.amount = amountFor(result);
-  result.volumeCredits = volumeCreditsFor(result);
-
-  return result;
+function totalVolumeCredits(performances) {
+  return performances.reduce(
+    (total, performance) => total + performance.volumeCredits,
+    0
+  );
 }
