@@ -4,6 +4,7 @@ import { describe, it } from "node:test";
 import createStatementData from "./create-statement-data.mjs";
 import statement from "./statement.mjs";
 import htmlTemplate from "./template/html-template.mjs";
+import plainTextTemplate from "./template/plain-text-template.mjs";
 
 describe("Statement", () => {
   const dataset = {
@@ -29,12 +30,11 @@ describe("Statement", () => {
   it("should be able to generate a report in plain text", () => {
     const { invoice, plays } = dataset;
 
-    const result = statement(invoice, plays);
+    const expected = plainTextTemplate(createStatementData(invoice, plays));
 
-    assert.strictEqual(
-      result,
-      `Statement for The Jackson's\nRomeo and Juliet: $450.00(35 seats)\nUgly Americans: $524.00(28 seats)\nAmount owed is $974.00\nYou earned 10 credits\n`
-    );
+    const received = statement(invoice, plays);
+
+    assert.strictEqual(received, expected);
   });
 
   it("should not be able to generate a report if unknown play type", () => {
