@@ -23,6 +23,6 @@ function renderPlays(performances) {
       <td>${cur.audience}</td>
       <td>${formatAsUSD(cur.amount)}</td>
     </tr>`),
-    ''
+    ""
   );
 }
