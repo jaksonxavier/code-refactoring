@@ -25,27 +25,13 @@ function enrichPerformance(performance, plays) {
 
   result.play = calculator.play;
   result.amount = calculator.amount;
-  result.volumeCredits = volumeCreditsFor(result);
+  result.volumeCredits = calculator.volumeCredits;
 
   return result;
 }
 
 function playFor(performance, plays) {
   return plays[performance.playID];
-}
-
-function volumeCreditsFor(performance) {
-  let volumeCredits = 0;
-
-  // soma créditos por volume
-  volumeCredits += Math.max(performance.audience - 30, 0);
-
-  // soma um crédito extra para cada dez espectadores de comédia
-  if (performance.play.type === "comedy") {
-    volumeCredits += Math.floor(performance.audience / 5);
-  }
-
-  return volumeCredits;
 }
 
 function totalAmount(performances) {

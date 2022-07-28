@@ -27,4 +27,18 @@ export default class PerformanceCalculator {
   
     return amount;
   }
+
+  get volumeCredits() {
+    let volumeCredits = 0;
+  
+    // soma créditos por volume
+    volumeCredits += Math.max(this.performance.audience - 30, 0);
+  
+    // soma um crédito extra para cada dez espectadores de comédia
+    if (this.play.type === "comedy") {
+      volumeCredits += Math.floor(this.performance.audience / 5);
+    }
+  
+    return volumeCredits;
+  }
 }
