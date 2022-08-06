@@ -1,4 +1,4 @@
-import formatAsUSD from "../format-usd.mjs";
+import formatAsUSD from "../utils/format-usd.mjs";
 
 export default function htmlTemplate(data) {
   return `<h1>Statement for ${data.customer}</h1>

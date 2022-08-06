@@ -1,4 +1,4 @@
-import formatAsUSD from "../format-usd.mjs";
+import formatAsUSD from "../utils/format-usd.mjs";
 
 export default function plainTextTemplate(data) {
   return `Statement for ${data.customer}\n
