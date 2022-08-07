@@ -2,8 +2,8 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import invoices from "./src/dataset/invoices.json" assert { type: "json" };
-import plays from "./src/dataset/plays.json" assert { type: "json" };
+import invoices from "./src/database/invoices.json" assert { type: "json" };
+import plays from "./src/database/plays.json" assert { type: "json" };
 import statement from "./src/statement.mjs";
 
 const __filename = fileURLToPath(import.meta.url);

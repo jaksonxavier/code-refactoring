@@ -7,7 +7,7 @@ import htmlTemplate from "./templates/html-template.mjs";
 import plainTextTemplate from "./templates/plain-text-template.mjs";
 
 describe("Statement", () => {
-  const dataset = {
+  const database = {
     plays: {
       "romeo-juliet": { name: "Romeo and Juliet", type: "tragedy" },
       "ugly-americans": { name: "Ugly Americans", type: "comedy" },
@@ -28,7 +28,7 @@ describe("Statement", () => {
   };
 
   it("should be able to generate a report in plain text", () => {
-    const { invoice, plays } = dataset;
+    const { invoice, plays } = database;
 
     const expected = plainTextTemplate(createStatementData(invoice, plays));
 
@@ -38,7 +38,7 @@ describe("Statement", () => {
   });
 
   it("should not be able to generate a report if unknown play type", () => {
-    const { invoice } = dataset;
+    const { invoice } = database;
     const plays = {
       "auto-da-compadecida": { name: "Auto da Compadecida", type: "melodrama" },
     };
@@ -49,7 +49,7 @@ describe("Statement", () => {
   });
 
   it("should be able to generate a report in html", () => {
-    const { invoice, plays } = dataset;
+    const { invoice, plays } = database;
 
     const expected = htmlTemplate(createStatementData(invoice, plays));
 
@@ -59,7 +59,7 @@ describe("Statement", () => {
   });
 
   it("should be able to throws if report type is unknown", () => {
-    const { invoice, plays } = dataset;
+    const { invoice, plays } = database;
 
     const result = () => statement(invoice, plays, "invalid-type");
 
