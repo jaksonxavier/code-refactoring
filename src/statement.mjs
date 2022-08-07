@@ -1,6 +1,6 @@
 import createStatementData from "./create-statement-data.mjs";
-import htmlTemplate from "./template/html-template.mjs";
-import plainTextTemplate from "./template/plain-text-template.mjs";
+import htmlTemplate from "./templates/html-template.mjs";
+import plainTextTemplate from "./templates/plain-text-template.mjs";
 
 export default function statement(invoice, plays, type = "plainText") {
   const statementData = createStatementData(invoice, plays);

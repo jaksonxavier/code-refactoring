@@ -3,8 +3,8 @@ import { describe, it } from "node:test";
 
 import createStatementData from "./create-statement-data.mjs";
 import statement from "./statement.mjs";
-import htmlTemplate from "./template/html-template.mjs";
-import plainTextTemplate from "./template/plain-text-template.mjs";
+import htmlTemplate from "./templates/html-template.mjs";
+import plainTextTemplate from "./templates/plain-text-template.mjs";
 
 describe("Statement", () => {
   const dataset = {
