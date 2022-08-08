@@ -1,0 +1,20 @@
+[
+  {
+    "id": "3d632c75-02cd-4814-b281-aa2ed308e9b6",
+    "name": "Linus Torvalds",
+    "email": "linus.torvalds@mail.com",
+    "phoneHumber": "77777777711"
+  },
+  {
+    "id": "fb558e36-126e-4af7-a47c-7ffc5138473d",
+    "name": "Dennis Ritchie",
+    "email": "dennis.ritchie@mail.com",
+    "phoneHumber": "88888888888"
+  },
+  {
+    "id": "98d783b2-b7ba-4cd3-b6f3-4313de7b21ea",
+    "name": "Alan Mathison Turing",
+    "email": "alan.turing@email.com",
+    "phoneHumber": "9999999999"
+  }
+]
