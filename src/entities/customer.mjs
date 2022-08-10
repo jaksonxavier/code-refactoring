@@ -21,12 +21,12 @@ export default class Customer extends BaseEntity {
     this.props.email = email;
   }
 
-  get phoneHumber() {
-    return this.props.phoneHumber;
+  get phoneNumber() {
+    return this.props.phoneNumber;
   }
 
-  set phoneHumber(phoneHumber) {
-    this.props.phoneHumber = phoneHumber;
+  set phoneNumber(phoneNumber) {
+    this.props.phoneNumber = phoneNumber;
   }
 
   create(props, id) {
